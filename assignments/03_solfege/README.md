@@ -4,7 +4,7 @@ For this exercise, we'll draw inspiration from the song "Do-Re-Mi" from _The Sou
 
 https://www.youtube.com/watch?v=drnBMAEA3AM
 
-Your program will accept one or more positional arguments which may or may not name a syllable of (https://en.wikipedia.org/wiki/Solf%C3%A8ge)[solfege].
+Your program will accept one or more positional arguments which may or may not name a syllable of [solfege](https://en.wikipedia.org/wiki/Solf%C3%A8ge).
 If a given syllable is valid, you should print it followed by a comma and the the appropriate line from the following list:
 
 * Do: A deer, a female deer
