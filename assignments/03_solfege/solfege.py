@@ -17,29 +17,35 @@ def get_args():
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('notes',
-                        metavar= 'str',
-                        type= str,
-                        nargs= '*',
-                        help= 'Solfege')
-
+                        metavar='str',
+                        type=str,
+                        nargs='*',
+                        help='Solfege')
 
     return parser.parse_args()
 
 
 # --------------------------------------------------
 def main():
-    """Julie Andrews warms up"""
+    """Julie Andrews warms up!"""
 
     args = get_args()
     notes = args.notes
-    response = {'Do': 'Do, A deer, a female deer', 'Re': 'Re, A drop of golden sun', 'Mi': 'Mi, A name I call myself', 'Fa': 'Fa, A long long way to run', 'Sol': 'Sol, A needle pulling thread', 'La': 'La, A note to follow sol', 'Ti': 'Ti, A drink with jam and bread'}
-    
+    response = {
+        'Do': 'Do, A deer, a female deer',
+        'Re': 'Re, A drop of golden sun',
+        'Mi': 'Mi, A name I call myself',
+        'Fa': 'Fa, A long long way to run',
+        'Sol': 'Sol, A needle pulling thread',
+        'La': 'La, A note to follow sol',
+        'Ti': 'Ti, A drink with jam and bread'
+    }
 
-    for i in range(len(notes)):
-        if notes[i] in response:
-            print(response.get(notes[i]))
+    for x in range(len(notes)):
+        if notes[x] in response:
+            print(response.get(notes[x]))
         else:
-            print("I don't know " + '"' + notes[i] + '"')
+            print("I don't know " + '"' + notes[x] + '"')
 
 
 # --------------------------------------------------
