@@ -1,4 +1,4 @@
 .PHONY: test
 
 test:
-	pytest -xv --pylint --flake8 test.py
+	pytest -xv --pylint --flake8 test.py solfege.py
