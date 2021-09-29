@@ -34,10 +34,6 @@ def get_args():
 
     args = parser.parse_args()
 
-    # # file = args.fi 
-    # if os.path.isfile(args.fi):
-    #     args.fi = open(args.fi).read().rstrip()
-
     return args
 
 # --------------------------------------------------
@@ -46,15 +42,15 @@ def main():
 
     args = get_args()
     files = args.fi
-    line_num = 0
+    # line_num = 0
     for i in files[0:]:
         if os.path.isfile(i.name):
-            blah = open(i.name).read()
-            print(type(blah))
+            blah = open(i.name).read().rstrip()
+            # print(type(blah))
             print(blah)
-            for line in blah[0:'\n']:
-                line_num += 1
-                print (line_num, line)
+            # for line in blah[0:'\n']:
+            #     line_num += 1
+            #     print (line_num, line)
 
   
 
