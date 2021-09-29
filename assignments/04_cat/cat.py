@@ -6,7 +6,6 @@ Purpose: I concatenate files - that means join
 """
 
 import argparse
-import os
 
 
 # --------------------------------------------------
@@ -42,22 +41,17 @@ def main():
 
     if args.number:
         for i in files[0:]:
-            if os.path.isfile(i.name):
-                blah = open(i.name, "r")
-                line_list = blah.readlines()
-                blah.close()
-                numbering = 1
-                for q in line_list:
-                    numbered_lines = '     ' + "{}".format(
-                        numbering) + '\t' + q.rstrip()
-                    # changed " " to "\t" to move it to a tab but it's still unhappy
-                    numbering += 1
-                    print(numbered_lines)
+            line_list = i.readlines()
+            i.close()
+            numbering = 1
+            for q in line_list:
+                numbered_lines = '     ' + "{}".format(
+                    numbering) + '\t' + q.rstrip()
+                numbering += 1
+                print(numbered_lines)
     else:
         for i in files[0:]:
-            if os.path.isfile(i.name):
-                blah = open(i.name).read().rstrip()
-                print(blah)
+            print(i.read().rstrip())
 
 
 # --------------------------------------------------
