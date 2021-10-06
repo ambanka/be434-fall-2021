@@ -18,14 +18,13 @@ def get_args():
 
     parser.add_argument('NAseq', metavar='str', help='Nucleic acid sequence')
 
-    parser.add_argument(
-        '-c',
-        '--codons',
-        help='Specify NA table type for translation',
-        metavar='FILE',
-        nargs=1,
-        type=argparse.FileType('rt'),
-        required=True)
+    parser.add_argument('-c',
+                        '--codons',
+                        help='Specify NA table type for translation',
+                        metavar='FILE',
+                        nargs=1,
+                        type=argparse.FileType('rt'),
+                        required=True)
 
     parser.add_argument('-o',
                         '--outfile',
@@ -62,12 +61,11 @@ def main():
 
     ttable = {ki_list[i]: val_list[i] for i in range(len(ki_list))}
 
-    for (m, q) in enumerate(chunked):
+    for q in chunked:
         if q in ttable:
             aa_seq += ttable.get(q)
         else:
             aa_seq += "-"
-            m += 1
 
     args.outfile.write(aa_seq)
     outfi = args.outfile.name
