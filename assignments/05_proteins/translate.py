@@ -13,8 +13,7 @@ def get_args():
     """Get command-line arguments"""
 
     parser = argparse.ArgumentParser(
-        description=
-        'I translate nucleic acid sequences into amino acid sequences',
+        description='I translate NA sequences into AA sequences',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
     parser.add_argument('NAseq', metavar='str', help='Nucleic acid sequence')
@@ -22,8 +21,7 @@ def get_args():
     parser.add_argument(
         '-c',
         '--codons',
-        help=
-        'You must specify the codon table so that I can translate appropriately',
+        help='Specify NA table type for translation',
         metavar='FILE',
         nargs=1,
         type=argparse.FileType('rt'),
@@ -46,7 +44,6 @@ def main():
 
     args = get_args()
     NAseq = args.NAseq
-    cotab = args.codons
 
     uppercase = NAseq.upper()
     chunked = wrap(uppercase, 3)
@@ -54,7 +51,7 @@ def main():
     ki_list = []
     aa_seq = ''
 
-    for line in cotab:
+    for line in args.codons:
         tablereadin = line.readlines()
         line.close()
 
@@ -65,11 +62,12 @@ def main():
 
     ttable = {ki_list[i]: val_list[i] for i in range(len(ki_list))}
 
-    for q in range(len(chunked)):
-        if chunked[q] in ttable:
-            aa_seq += ttable.get(chunked[q])
+    for (m, q) in enumerate(chunked):
+        if q in ttable:
+            aa_seq += ttable.get(q)
         else:
             aa_seq += "-"
+            m += 1
 
     args.outfile.write(aa_seq)
     outfi = args.outfile.name
