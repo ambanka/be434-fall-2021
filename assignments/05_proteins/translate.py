@@ -51,11 +51,11 @@ def main():
     NAseq = args.NAseq
     cotab = args.codons
 
-    print(NAseq)
     chunked = wrap(NAseq, 3)
     print(chunked)
     val_list = []
     ki_list = []
+    aa_seq = ''
 
     for line in cotab:
         tablereadin = line.readlines()
@@ -67,47 +67,14 @@ def main():
         val_list.append(y[4:5])
 
     ttable = {ki_list[i]:val_list[i] for i in range(len(ki_list))}
-    print(ttable)
 
-        # for item in chunked:
-        #     if item in yoyo[0:3]:
-        #         print('yes')
-        #     else:
-        #         print('garbage')
-        # line.close()
-    # print(yoyo)
+    for q in range(len(chunked)):
+        if chunked[q] in ttable:
+            aa_seq += ttable.get(chunked[q])
+        else:
+            print("You seem to have given me something that wasn't a codon" + " - " + chunked[q])
 
-
-
-
-
-    # kiwi = []
-    # for x in yoyo:
-    #     ki = x[0:3]
-    #     kiwi = ki[0:]
-    #     # print(ki)
-    # print(kiwi)
-    # for y in yoyo: 
-    #     val = y[4:5]
-    #     print(val)
-
-    # for tri in chunked:
-
-    # for x in yoyo:
-    #     ttable[line]
-
- # ttable[line[0].upper()] = line.splitlines()
-
-    # fh = open(cotab)
-    # print(fh.splitlines())
-
-
-      
-
-
-
-    # print(ttable)
-    # for x in chunked:
+    print(aa_seq)
 
 
 # --------------------------------------------------
