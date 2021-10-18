@@ -43,7 +43,9 @@ def main():
     input = args.sequence
 
     dict = {'R':'[AG]', 'Y':'[CT]','S':'[GC]','W':'[AT]','K':'[GT]','M':'[AC]','B':'[CGT]','D':'[AGT]','H':'[ACT]','V':'[ACG]','N':'[ACGT]'}
-    
+
+ 
+
     for y in input[0:]:
         def multiple_replace(dict, y):
             regex = re.compile("|".join(map(re.escape, dict.keys(  ))))
@@ -53,23 +55,11 @@ def main():
         args.outfile.write(line1)
         args.outfile.write(line2)
     
-    for args.outfile:
-        if
-    print(f'Done, see output in "{args.outfile.name}"')
-    args.outfile.close()
+
+    file = args.outfile.name
+    if os.path.isfile(file):
+        print(f'Done, see output in "{args.outfile.name}"')
     
-
-#   no_duplicates = list(dict.fromkeys(wordlist))
-#     final = "\n".join(no_duplicates)
-#     args.outfile.write(final)
-#     args.outfile.close()
-
-        ## Printing ##
-#   args.outfile.write(aa_seq)
-#     outfi = args.outfile.name
-#     print('Output written to "' + outfi + '".')
-#     ### print(f'Output written to "{args.outfile.name}".')
-#     args.outfile.close()
 
 # --------------------------------------------------
 if __name__ == '__main__':
