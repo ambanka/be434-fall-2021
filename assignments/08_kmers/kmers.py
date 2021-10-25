@@ -79,7 +79,8 @@ def main():
     
 
     for x in kmer_list:
-        print('{:15s}{:6s}{}'.format(x, f'{counted_1.get(x)}', f'{counted_2.get(x)}'))
+        print('{0: <10}'.format(x) + '{0: >6}'.format(f'{counted_1.get(x)}') + '{0: >6}'.format(f'{counted_2.get(x)}'))
+         #<15}{:1s}{}'.format(x, f'{counted_1.get(x)}', f'    {counted_2.get(x)}'))
         
   
 
