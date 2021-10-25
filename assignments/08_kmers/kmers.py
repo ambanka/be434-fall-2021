@@ -79,10 +79,9 @@ def main():
     
 
     for x in kmer_list:
-           #(x,counted_1.get(x),counted_2.get(x)))
+        print('{:15s}{:6s}{}'.format(x, f'{counted_1.get(x)}', f'{counted_2.get(x)}'))
+        
   
-        print('{:10s} {:5s} {:5s}'.format(x, x, x)
-     
 
 # --------------------------------------------------
 if __name__ == '__main__':
