@@ -69,8 +69,7 @@ def main():
                     kmer_list.add(kmer)
                     counted_1.update({kmer:0})
                     counted_2.update({kmer:0})
-    
-    print(kmer_list)    
+
 
     for word in words1:
         for kmer in find_kmers(word, k):
@@ -86,7 +85,7 @@ def main():
     
 
     for x in kmer_list:
-        print(f'{x:<10}{counted_1.get(x):<5}{counted_2.get(x):<5}')
+        print(f'{x:<15}{counted_2.get(x):<6}{counted_1.get(x)}')
   
 
 # --------------------------------------------------
