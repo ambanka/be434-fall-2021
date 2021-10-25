@@ -6,6 +6,7 @@ Purpose: I find commonalities between two files
 """
 import argparse
 
+
 # --------------------------------------------------
 def get_args():
     """Get command-line arguments"""
@@ -14,7 +15,6 @@ def get_args():
         description='I find commanalities between two files',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    
     parser.add_argument('FILE1',
                         help='Input file 1',
                         metavar='FILE',
@@ -24,17 +24,17 @@ def get_args():
                         help='Input file 2',
                         metavar='FILE',
                         type=argparse.FileType('rt'))
-        
+
     parser.add_argument('-k',
                         '--kmers',
                         help='K-mer size',
                         metavar='int',
                         type=int,
-                        default=3) 
+                        default=3)
 
     args = parser.parse_args()
     if args.kmers <= 0:
-            parser.error (f'--kmer "{args.kmers}" must be > 0')
+        parser.error(f'--kmer "{args.kmers}" must be > 0')
     return args
 
 
@@ -54,35 +54,32 @@ def main():
     words1 = contents1.split()
     words2 = contents2.split()
     kmer_list = set()
-    
+
     counted_1 = {}
     counted_2 = {}
 
     for word in words1:
         for kmer in find_kmers(word, k):
-            counted_1.update({kmer:0})
-            counted_2.update({kmer:0})
-            for word in words2:
-                if kmer in find_kmers(word, k):
+            counted_1.update({kmer: 0})
+            counted_2.update({kmer: 0})
+            for wo in words2:
+                if kmer in find_kmers(wo, k):
                     kmer_list.add(kmer)
-                 
 
-    for word in words1: 
+    for word in words1:
         for kmer in find_kmers(word, k):
             if kmer in counted_1:
                 counted_1[kmer] += 1
-    
-    for word in words2: 
+
+    for word in words2:
         for kmer in find_kmers(word, k):
             if kmer in counted_2:
                 counted_2[kmer] += 1
-    
 
     for x in kmer_list:
-        print('{0: <10}'.format(x) + '{0: >6}'.format(f'{counted_1.get(x)}') + '{0: >6}'.format(f'{counted_2.get(x)}'))
-         #<15}{:1s}{}'.format(x, f'{counted_1.get(x)}', f'    {counted_2.get(x)}'))
-        
-  
+        print('{0: <10}'.format(x) + '{0: >6}'.format(f'{counted_1.get(x)}') +
+              '{0: >6}'.format(f'{counted_2.get(x)}'))
+
 
 # --------------------------------------------------
 if __name__ == '__main__':
