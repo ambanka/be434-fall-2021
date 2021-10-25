@@ -5,10 +5,6 @@ Date   : 2021-10-22
 Purpose: I find commonalities between two files
 """
 import argparse
-import os
-import sys
-import re
-
 
 # --------------------------------------------------
 def get_args():
@@ -64,29 +60,29 @@ def main():
 
     for word in words1:
         for kmer in find_kmers(word, k):
+            counted_1.update({kmer:0})
+            counted_2.update({kmer:0})
             for word in words2:
                 if kmer in find_kmers(word, k):
                     kmer_list.add(kmer)
-                    counted_1.update({kmer:0})
-                    counted_2.update({kmer:0})
+                 
 
-
-    for word in words1:
+    for word in words1: 
         for kmer in find_kmers(word, k):
-            for word in words2:
-                if kmer in find_kmers(word, k):
-                    counted_2[kmer] += 1
-  
-    for word in words2:
+            if kmer in counted_1:
+                counted_1[kmer] += 1
+    
+    for word in words2: 
         for kmer in find_kmers(word, k):
-            for word in words1:
-                if kmer in find_kmers(word, k):
-                    counted_1[kmer] += 1
+            if kmer in counted_2:
+                counted_2[kmer] += 1
     
 
     for x in kmer_list:
-        print(f'{x:<15}{counted_2.get(x):<6}{counted_1.get(x)}')
+           #(x,counted_1.get(x),counted_2.get(x)))
   
+        print('{:10s} {:5s} {:5s}'.format(x, x, x)
+     
 
 # --------------------------------------------------
 if __name__ == '__main__':
