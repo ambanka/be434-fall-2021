@@ -54,7 +54,7 @@ def main():
         fwd_file = file_name[:end] + '_1' + file_name[end:]
         rvs_file = file_name[:end] + '_2' + file_name[end:]
         Ffile = open(fwd_file,"wt")
-        Rile = open(rvs_file,"wt")
+        Rfile = open(rvs_file,"wt")
 
         reader = SeqIO.parse(file, 'fasta')
         for rec in reader:
