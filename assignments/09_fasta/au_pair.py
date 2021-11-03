@@ -46,24 +46,26 @@ def main():
 
     args = get_args()
     files = args.FILE
-    
+    out_dir = args.outdir
+
+    if not os.path.isdir(out_dir):
+        os.makedirs(out_dir)
 
     for file in args.FILE:
         file_name = os.path.basename(file)
         end = file_name.rfind('.')
         fwd_file = file_name[:end] + '_1' + file_name[end:]
         rvs_file = file_name[:end] + '_2' + file_name[end:]
-        Ffile = open(fwd_file,"wt")
-        Rfile = open(rvs_file,"wt")
+        Ffile = open(out_dir+'/'+fwd_file,"wt")
+        Rfile = open(out_dir+'/'+rvs_file,"wt")
 
         reader = SeqIO.parse(file, 'fasta')
         for rec in reader:
-            print('ID :', rec.id)
-            print('Seq:', str(rec.seq))
-
+            Ffile.write(f"{'ID :', rec.id}\n{('Seq:', str(rec.seq))}\n")
 
         Ffile.close()
         Rfile.close()
+    
 
 
         # fwd_file = i.split(".", 2)
