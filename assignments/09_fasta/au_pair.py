@@ -34,9 +34,9 @@ def get_args():
                         default='split')
 
     args = parser.parse_args()
-    for i in args.FILE:
-        if not os.path.isfile(i):
-            parser.error(f'No such file or directory: "{i}"')
+    for file in args.FILE:
+        if not os.path.isfile(file):
+            parser.error(f'No such file or directory: "{file}"')
     return args
 
 
@@ -45,50 +45,33 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    files = args.FILE
-    out_dir = args.outdir
 
-    if not os.path.isdir(out_dir):
-        os.makedirs(out_dir)
+    if not os.path.isdir(args.outdir):
+        os.makedirs(args.outdir)
 
     for file in args.FILE:
         file_name = os.path.basename(file)
         end = file_name.rfind('.')
         fwd_file = file_name[:end] + '_1' + file_name[end:]
         rvs_file = file_name[:end] + '_2' + file_name[end:]
-        Ffile = open(out_dir+'/'+fwd_file,"wt")
-        Rfile = open(out_dir+'/'+rvs_file,"wt")
+        Ffile = open(args.outdir+'/'+fwd_file,'wt')
+        Rfile = open(args.outdir+'/'+rvs_file,'wt')
 
+        dict = {}
         reader = SeqIO.parse(file, 'fasta')
         for rec in reader:
-            Ffile.write(f"{'ID :', rec.id}\n{('Seq:', str(rec.seq))}\n")
+            dict.update({f'>{rec.id}' : f'{str(rec.seq)}'})
+        print(dict)
+
+
+            # Ffile.write(f"{'ID :', rec.id} \n")
+            # Ffile.write(f"{'Seq:', str(rec.seq)}")
+
+          
 
         Ffile.close()
         Rfile.close()
     
-
-
-        # fwd_file = i.split(".", 2)
-        # print(fwd_file)
-        # new_fwd_file = append("jo","bob")
-        # # (f'{fwd_file[1]},{fwd_file[2]}').cat
-        # print(new_fwd_file)
-        # new_fwd_file = open.(f'{fwd_file[1]}')
-
-    for i in args.FILE:
-        reader = SeqIO.parse(i, 'fasta')
-        for rec in reader:
-            # file1 = open(f'{str(files_list[i])}_1.fa', 'x')
-            print('ID :', rec.id)
-            print('Seq:', str(rec.seq))
-            # out_files.write('ID :', rec.id)
-            # out_files.write('Seq:', str(rec.seq))
-    ### cat
-
-    # out_files = open(args.o/alex)
-    # for line in out_files:
-    #     print line
-
 
 # --------------------------------------------------
 if __name__ == '__main__':
