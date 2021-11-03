@@ -53,8 +53,17 @@ def main():
         end = file_name.rfind('.')
         fwd_file = file_name[:end] + '_1' + file_name[end:]
         rvs_file = file_name[:end] + '_2' + file_name[end:]
-        print(fwd_file)
-        print(rvs_file)
+        Ffile = open(fwd_file,"wt")
+        Rile = open(rvs_file,"wt")
+
+        reader = SeqIO.parse(file, 'fasta')
+        for rec in reader:
+            print('ID :', rec.id)
+            print('Seq:', str(rec.seq))
+
+
+        Ffile.close()
+        Rfile.close()
 
 
         # fwd_file = i.split(".", 2)
