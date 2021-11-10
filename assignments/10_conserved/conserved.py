@@ -28,28 +28,20 @@ def main():
 
     args = get_args()
     file = args.file
-    lines_list = file.read().split()
+    lines_list = file.read().splitlines()
     print(*lines_list, sep='\n')
-    line1 = lines_list[0]
-    line2 = lines_list[1]
 
-    # think about utilizing map, enumerate, #
-    # filter, lambda, something to write an algorithm to do this #
-
-    if len(lines_list) == 2:
-        for n in range(len(line1)):
-            if line1[n] == line2[n]:
-                print('|', end='')
-            else:
-                print('X', end='')
-
-    if len(lines_list) == 3:
-        line3 = lines_list[2]
-        for n in range(len(line1)):
-            if line1[n] == line2[n] == line3[n]:
-                print('|', end='')
-            else:
-                print('X', end='')
+    for i in range(len(lines_list[0])):
+        bases = []
+        for char in lines_list:
+            bases += char[i]
+        # if all([bases[0] == base for base in bases]):
+        if len(set(bases)) == 1:
+            print('|', end='')
+        else:
+            print('X', end='')
+    # printing alt conserved += | or X & print(conserved)
+    # conserved += '|' if len(set(bases)) == 1 else 'X' & prnt cons
 
 
 # --------------------------------------------------
