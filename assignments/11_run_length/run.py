@@ -16,25 +16,23 @@ def get_args():
         description='I compress strings of DNA',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-  
     parser.add_argument('seq',
                         help='DNA text or file',
                         metavar='str',
                         type=str)
 
-
     args = parser.parse_args()
 
     if os.path.isfile(args.seq):
         args.seq = open(args.seq).read().rstrip()
-    
+
     return args
 
 
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
-    
+
     args = get_args()
 
     for seq in args.seq.splitlines():
@@ -44,9 +42,9 @@ def main():
 # --------------------------------------------------
 def rle(seq: str) -> str:
     """Run-length encoding"""
-    
+
     previous = ''
-    list = []
+    li = []
     count = 1
     for char in seq:
         if previous == '':
@@ -55,21 +53,21 @@ def rle(seq: str) -> str:
         elif char == previous:
             count += 1
         else:
-            list.append((previous, count))
+            li.append((previous, count))
             count = 1
         previous = char
-    list.append((previous, count))
+    li.append((previous, count))
     final = []
-    for tup in list:
+    for tup in li:
         if tup[1] == 1:
             final.append(tup[0])
         else:
             final.append(tup[0])
             final.append(tup[1])
-    print(*final, sep = '')
-   
+    print(*final, sep='', end='')
+
     return ''
-   
+
 
 # --------------------------------------------------
 if __name__ == '__main__':
