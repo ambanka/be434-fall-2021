@@ -54,12 +54,19 @@ def rle(seq: str) -> str:
         elif char == previous:
             count += 1
         else:
-            list.append({previous, count})
+            list.append((previous, count))
             count = 1
-        print(char, count)
         previous = char
-    list.append({previous, count})
-    print(list)
+    list.append((previous, count))
+    final = []
+    for tup in list:
+        if tup[1] == 1:
+            final.append(tup[0])
+        else:
+            final.append(tup[0])
+            final.append(tup[1])
+    print(*final, sep = '')
+   
     return ''
    
 
