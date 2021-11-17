@@ -37,17 +37,31 @@ def main():
 
     args = get_args()
     for seq in args.seq.splitlines():
-        # print(rle(seq))
-        print(seq)
+        print(rle(seq))
 
 
 # --------------------------------------------------
 def rle(seq: str) -> str:
     """Run-length encoding"""
     
+    previous = ''
+    list = []
+    count = 1
+    for char in seq:
+        if previous == '':
+            previous = char
+            count = 1
+        elif char == previous:
+            count += 1
+        else:
+            list.append({previous, count})
+            count = 1
+        print(char, count)
+        previous = char
+    list.append({previous, count})
+    print(list)
+    return ''
    
-   return ''
-
 
 # --------------------------------------------------
 if __name__ == '__main__':
