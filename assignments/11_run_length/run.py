@@ -5,6 +5,7 @@ Date   : 2021-11-15
 Purpose: I compress strings of DNA
 """
 import argparse
+import os
 
 
 # --------------------------------------------------
@@ -22,7 +23,12 @@ def get_args():
                         type=str)
 
 
-    return parser.parse_args()
+    args = parser.parse_args()
+
+    if os.path.isfile(args.seq):
+        args.seq = open(args.seq).read().rstrip()
+    
+    return args
 
 
 # --------------------------------------------------
@@ -30,32 +36,17 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    seq = args.seq
-    print(seq)
-    # n-1
-    # map?
-    basenumbers = []
-    # for seq[0:]:
-    #     if seq[n] == seq[n+1]:
-    #         print(seq[n])
+    for seq in args.seq.splitlines():
+        # print(rle(seq))
+        print(seq)
 
-    for base in args.seq:
-        basenumbers.append({base:1})
 
-    for seq[n] in seq:
-        print(seq[n])
-    print(basenumbers[1])
-    # for bases in args.seq:
-    #     if bases[1] != bases[2]:
-    #         basenumbers.append({bases:1})
-        # if base[n] == base[n+1]:
-        #     count = 2
-        # when base[n] == base[n+1]
-        #     count += 1
-        # basenumbers.append({base:1})
-        
-
-    print(basenumbers)
+# --------------------------------------------------
+def rle(seq: str) -> str:
+    """Run-length encoding"""
+    
+   
+   return ''
 
 
 # --------------------------------------------------
