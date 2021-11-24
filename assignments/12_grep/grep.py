@@ -6,6 +6,8 @@ Purpose: I kinda copy the normal functions of grep
 """
 
 import argparse
+import os
+import sys
 
 
 # --------------------------------------------------
@@ -16,37 +18,38 @@ def get_args():
         description='I kinda copy the normal functions of grep',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('positional',
-                        metavar='str',
-                        help='A positional argument')
+    parser.add_argument('pattern',
+                        metavar='PATTERN',
+                        help='Search pattern')
 
-    parser.add_argument('-a',
-                        '--arg',
-                        help='A named string argument',
-                        metavar='str',
-                        type=str,
-                        default='')
-
-    parser.add_argument('-i',
-                        '--int',
-                        help='A named integer argument',
-                        metavar='int',
-                        type=int,
-                        default=0)
-
-    parser.add_argument('-f',
-                        '--file',
-                        help='A readable file',
+    parser.add_argument('file', 
+                        help='Input file(s)',
+                        nargs = '+', 
                         metavar='FILE',
-                        type=argparse.FileType('rt'),
-                        default=None)
+                        type=argparse.FileType('rt'))
+                    
+    parser.add_argument('-i', 
+                        '--insensitive', 
+                        help = 'Case insensitive search', 
+                        type = str, 
+                        metavar = '', 
+                        default = False)
+                
 
-    parser.add_argument('-o',
-                        '--on',
-                        help='A boolean flag',
-                        action='store_true')
+    parser.add_argument('-o', 
+                        '--outfile', 
+                        type = argparse.FileType('wt'), 
+                        metavar = 'FILE', 
+                        help = 'Output', 
+                        default= sys.stdout)
 
-    return parser.parse_args()
+
+    args = parser.parse_args()
+
+    if os.path.isfile(args.file):
+        args.file = open(args.file).read().rstrip()
+
+    return args
 
 
 # --------------------------------------------------
@@ -54,17 +57,6 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
-
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
 
 
 # --------------------------------------------------
