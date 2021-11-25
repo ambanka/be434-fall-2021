@@ -41,11 +41,12 @@ def main():
         'Ti': 'Ti, A drink with jam and bread'
     }
 
-    for x in range(len(notes)):
-        if notes[x] in response:
-            print(response.get(notes[x]))
+    phrase = "I don't know "
+    for x in notes:
+        if x in response:
+            print(response.get(x))
         else:
-            print("I don't know " + '"' + notes[x] + '"')
+            print(f'{phrase}"{x}"')
 
 
 # --------------------------------------------------
