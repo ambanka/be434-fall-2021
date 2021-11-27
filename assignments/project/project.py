@@ -61,11 +61,10 @@ def main() -> None:
         # reads in Satan's matrix
 
     adata.var_names_make_unique()
-
+    adata.var['mt'] = adata.var_names.str.startswith('MT-')
     adata.X = adata.X.astype('float64')
         # sets it to be more accurate so it's a closer mirror to Seurat's R module work
     
-    adata.var['mt'] = adata.var_names.str.startswith('MT-')
     sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
        
     initial_maps(adata)
@@ -132,30 +131,12 @@ def filtering(adata):
     high_genes = int(input("Filter out cells that have more than ____ gene counts: "))
     rare_genes = int(input("Filter out genes that are seen in fewer than ____ cells: "))
     mito_perc = int(input("Filter out cells with too high a mitochondrial gene percentage: "))
-
-    
-    if low_genes: 
-        sc.pp.filter_cells(adata, min_genes= low_genes)
-    else:
-        sc.pp.filter_cells(adata, min_genes= 200)
-    # filters out cells that have <200 genes detected - non-viable cells
-   
-    if rare_genes:
-        sc.pp.filter_genes(adata, min_cells=rare_genes)
-    else:
-        sc.pp.filter_genes(adata, min_cells=10)
-    # filters out genes which are expressed by <10 cells
-
-    if high_genes:
-        adata = adata[adata.obs.n_genes_by_counts < high_genes, :]
-    else:
-        adata = adata[adata.obs.n_genes_by_counts < 2500, :]
-
-    if mito_perc:
-        adata = adata[adata.obs.pct_counts_mt < mito_perc, :]
-    else: 
-        adata = adata[adata.obs.pct_counts_mt < 5, :]
-
+ 
+    sc.pp.filter_cells(adata, min_genes= low_genes)
+    sc.pp.filter_genes(adata, min_cells=rare_genes)
+    adata = adata[adata.obs.n_genes_by_counts < high_genes, :]
+    adata = adata[adata.obs.pct_counts_mt < mito_perc, :]
+ 
     return(adata)
 
 # ----------------------------------------------
