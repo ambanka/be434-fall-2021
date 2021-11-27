@@ -68,7 +68,6 @@ def main() -> None:
     sc.pp.calculate_qc_metrics(adata, qc_vars=['mt'], percent_top=None, log1p=False, inplace=True)
        
     initial_maps(adata)
-    adata = filter(adata)
     adata = filtering(adata)
     filtered_maps(adata, 0)
     question(adata)
@@ -140,10 +139,7 @@ def filtering(adata):
     return(adata)
 
 # ----------------------------------------------
-def filter(adata):
-    adata = adata[adata.obs.n_genes_by_counts < 2500, :]
-    adata = adata[adata.obs.pct_counts_mt < 5, :]
-    return(adata)
+
 
 # -------------------------------------------
 def filtered_maps(adata, count):
