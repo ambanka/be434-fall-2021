@@ -18,13 +18,11 @@ def get_args():
         description='I print the lines of a file in reverse!',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-                        
     parser.add_argument('file',
                         help='Input file(s)',
                         nargs='+',
                         metavar='FILE',
                         type=str)
-      
 
     parser.add_argument('-o',
                         '--outfile',
@@ -32,7 +30,6 @@ def get_args():
                         metavar='FILE',
                         type=argparse.FileType('wt'),
                         default=sys.stdout)
-
 
     args = parser.parse_args()
 
@@ -46,22 +43,17 @@ def get_args():
 # --------------------------------------------------
 def main():
     """Make a jazz noise here"""
-
     args = get_args()
     for file in args.file[0:]:
-        contents = (open(file).read()).rstrip().split('\n')
-        # print(contents)
+        contents = (open(file).read()).strip().split('\n')
+        contents = [item for item in contents if str(item).islower()]
         contents.reverse()
         for line in contents:
             args.outfile.write(line)
             args.outfile.write('\n')
-        # final = *contents, sep = '\n'
-        # print(contents)
-        # rev = contents
-        # print(rev)
+    args.outfile.close()
 
-    # args.outfile.write(
-    # args.outfile.close()
+
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
