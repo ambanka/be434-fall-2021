@@ -6,6 +6,8 @@ Purpose: I print the lines of a file in reverse!
 """
 
 import argparse
+import os
+import sys
 
 
 # --------------------------------------------------
@@ -16,37 +18,24 @@ def get_args():
         description='I print the lines of a file in reverse!',
         formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 
-    parser.add_argument('positional',
-                        metavar='str',
-                        help='A positional argument')
-
-    parser.add_argument('-a',
-                        '--arg',
-                        help='A named string argument',
-                        metavar='str',
-                        type=str,
-                        default='')
-
-    parser.add_argument('-i',
-                        '--int',
-                        help='A named integer argument',
-                        metavar='int',
-                        type=int,
-                        default=0)
-
-    parser.add_argument('-f',
-                        '--file',
-                        help='A readable file',
+    parser.add_argument('file',
+                        help='Input file(s)',
                         metavar='FILE',
-                        type=argparse.FileType('rt'),
-                        default=None)
+                        nargs='+',
+                        type=argparse.FileType('rt'))
 
     parser.add_argument('-o',
-                        '--on',
-                        help='A boolean flag',
-                        action='store_true')
+                        '--outfile',
+                        help='Output filename',
+                        metavar='FILE',
+                        type=argparse.FileType('wt'),
+                        default=sys.stdout)
 
-    return parser.parse_args()
+    args = parser.parse_args()
+    for file in args.file:
+        if not os.path.isfile(file):
+            parser.error(f"No such file or directory: '{file}'")
+    return args
 
 
 # --------------------------------------------------
@@ -54,19 +43,10 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-    str_arg = args.arg
-    int_arg = args.int
-    file_arg = args.file
-    flag_arg = args.on
-    pos_arg = args.positional
-
-    print(f'str_arg = "{str_arg}"')
-    print(f'int_arg = "{int_arg}"')
-    print('file_arg = "{}"'.format(file_arg.name if file_arg else ''))
-    print(f'flag_arg = "{flag_arg}"')
-    print(f'positional = "{pos_arg}"')
 
 
+    args.outfile.write(final)
+    args.outfile.close()
 # --------------------------------------------------
 if __name__ == '__main__':
     main()
