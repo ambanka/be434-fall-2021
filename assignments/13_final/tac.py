@@ -48,18 +48,19 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
-
     for file in args.file[0:]:
         contents = (open(file).read()).rstrip().split('\n')
         # print(contents)
         contents.reverse()
-        print(*contents, sep = '\n')
+        for line in contents:
+            args.outfile.write(line)
+            args.outfile.write('\n')
+        # final = *contents, sep = '\n'
+        # print(contents)
         # rev = contents
         # print(rev)
-    # for i in args.file[0:]:
-    #         print(i.read().rstrip())
 
-    # args.outfile.write(final)
+    # args.outfile.write(
     # args.outfile.close()
 # --------------------------------------------------
 if __name__ == '__main__':
