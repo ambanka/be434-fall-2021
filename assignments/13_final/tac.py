@@ -48,8 +48,6 @@ def main():
     """Make a jazz noise here"""
 
     args = get_args()
- 
-            
 
     for file in args.file[0:]:
         contents = (open(file).read()).rstrip().split('\n')
